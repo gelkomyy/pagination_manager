@@ -33,14 +33,22 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
     this.errorTextStyle,
     this.retryTextStyle,
     this.retryButtonStyle,
+    this.onRetryForSearch,
+    this.onRefreshForSearch,
   }) : assert(scrollThreshold >= 0.0 && scrollThreshold <= 1.0,
             'scrollThreshold must be between 0.0 and 1.0');
 
   /// A callback function invoked when the user retries after an error.
   final void Function()? onRetry;
 
+  /// A callback function invoked when the user retries after an error for search.
+  final void Function()? onRetryForSearch;
+
   /// A callback function invoked when the user performs a pull-to-refresh action.
   final Future<void> Function()? onRefresh;
+
+  /// A callback function invoked when the user performs a pull-to-refresh action for search.
+  final Future<void> Function()? onRefreshForSearch;
 
   /// The text displayed when the list of items is empty.
   final String emptyItemsText;
@@ -109,8 +117,7 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
               if (!isFromSearch) {
                 onRetry?.call();
               } else {
-                paginationManagerWithSearch.paginationSearchManager.reset();
-                fetchNextPageForSearch();
+                onRetryForSearch?.call();
               }
             },
           );
@@ -144,7 +151,7 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
       },
 
       /// Display a refreshable or static list view.
-      child: onRefresh == null
+      child: onRefresh == null || (isFromSearch && onRefreshForSearch == null)
           ? ListView.builder(
               itemCount: items.length + (loadingFromPaginationState ? 1 : 0),
               scrollDirection: scrollDirection,
@@ -172,8 +179,7 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
                 if (!isFromSearch) {
                   return onRefresh!();
                 } else {
-                  paginationManagerWithSearch.paginationSearchManager.reset();
-                  return fetchNextPageForSearch();
+                  onRetryForSearch?.call();
                 }
               },
               child: ListView.builder(
