@@ -80,7 +80,6 @@ class PaginationSearchManager<T> {
   void reset() {
     _currentPage = 1;
     _items.clear();
-    _currentKeyword = null;
     _hasMore = true;
     _isLoading = false;
   }

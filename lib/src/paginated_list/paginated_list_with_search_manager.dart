@@ -105,7 +105,14 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
             retryTextStyle: retryTextStyle,
             retryButtonStyle: retryButtonStyle,
             retryText: retryText,
-            onRetry: onRetry,
+            onRetry: () {
+              if (!isFromSearch) {
+                onRetry?.call();
+              } else {
+                paginationManagerWithSearch.paginationSearchManager.reset();
+                fetchNextPageForSearch();
+              }
+            },
           );
     }
 
@@ -161,7 +168,14 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
 
           /// Display a refreshable list view with a pull-to-refresh action.
           : RefreshIndicator.adaptive(
-              onRefresh: onRefresh!,
+              onRefresh: () async {
+                if (!isFromSearch) {
+                  return onRefresh!();
+                } else {
+                  paginationManagerWithSearch.paginationSearchManager.reset();
+                  return fetchNextPageForSearch();
+                }
+              },
               child: ListView.builder(
                 itemCount: items.length + (loadingFromPaginationState ? 1 : 0),
                 scrollDirection: scrollDirection,
