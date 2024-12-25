@@ -4,9 +4,14 @@ import 'pagination_manager.dart';
 
 export 'src/pagination_result/pagination_result.dart';
 export 'src/repos/paginated_repository.dart';
+export 'src/repos/paginated_repository_with_search.dart';
+export 'src/repos/paginated_search_repository.dart';
 export 'src/paginated_manager_list/paginated_manager_list.dart';
 export 'src/pagination_manager_cubit/pagination_manager_cubit.dart';
 export 'src/paginated_list/paginated_list.dart';
+export 'src/paginated_list/paginated_list_with_search_manager.dart';
+export 'pagination_search_manager.dart';
+export 'pagination_manager_with_search.dart';
 
 /// A class for managing paginated data.
 ///
