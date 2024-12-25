@@ -19,6 +19,7 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
     required this.paginationManagerWithSearch,
     required this.itemBuilder,
     required this.fetchNextPage,
+    required this.fetchNextPageForSearch,
     required this.loadingFromPaginationState,
     this.onRefresh,
     this.onRetry,
@@ -49,6 +50,9 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
 
   /// A callback function invoked to fetch the next page of items.
   final VoidCallback fetchNextPage;
+
+  /// A callback function invoked to fetch the next page of items for search.
+  final VoidCallback fetchNextPageForSearch;
 
   /// The threshold for triggering pagination as a percentage of the scrollable area.
   /// Must be between 0.0 and 1.0.
@@ -122,7 +126,11 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
 
         if (scrollNotification.metrics.pixels >
             scrollNotification.metrics.maxScrollExtent * scrollThreshold) {
-          fetchNextPage();
+          if (!isFromSearch) {
+            fetchNextPage();
+          } else {
+            fetchNextPageForSearch();
+          }
         }
 
         return false;
