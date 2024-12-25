@@ -24,7 +24,7 @@ class PaginationSearchManager<T> {
   final int limitPerPage;
 
   int _currentPage = 1;
-  String? _currentKeyword;
+  String _currentKeyword = '';
   bool _isLoading = false;
   bool _hasMore = true;
 
@@ -34,7 +34,7 @@ class PaginationSearchManager<T> {
   List<T> get items => List.unmodifiable(_items);
 
   ///  The current keyword of search.
-  String? get currentKeyword => _currentKeyword;
+  String get currentKeyword => _currentKeyword;
 
   ///  Sets the current keyword of search.
   set changeCurrentKeyword(String keyword) => _currentKeyword = keyword;
@@ -50,14 +50,14 @@ class PaginationSearchManager<T> {
     if (_currentPage <= 0 || limitPerPage <= 0) {
       throw Exception('Invalid page or limitPerPage.');
     }
-    if (_isLoading || !_hasMore || _currentKeyword == null) {
+    if (_isLoading || !_hasMore || _currentKeyword.isEmpty) {
       return PaginationResult.success(_items);
     }
 
     _isLoading = true;
 
     final result = await repository.fetchPaginatedSearchItems(
-      keyword: _currentKeyword!,
+      keyword: _currentKeyword,
       page: _currentPage,
       limitPerPage: limitPerPage,
     );

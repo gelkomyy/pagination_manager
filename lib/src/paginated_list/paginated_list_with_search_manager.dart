@@ -97,9 +97,8 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
   final ButtonStyle? retryButtonStyle;
   @override
   Widget build(BuildContext context) {
-    final bool isFromSearch =
-        paginationManagerWithSearch.paginationSearchManager.currentKeyword !=
-            null;
+    final bool isFromSearch = paginationManagerWithSearch
+        .paginationSearchManager.currentKeyword.isNotEmpty;
     final List<T> items = !isFromSearch
         ? paginationManagerWithSearch.paginationManager.items
         : paginationManagerWithSearch.paginationSearchManager.items;
@@ -113,13 +112,16 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
             retryTextStyle: retryTextStyle,
             retryButtonStyle: retryButtonStyle,
             retryText: retryText,
-            onRetry: () {
-              if (!isFromSearch) {
-                onRetry?.call();
-              } else {
-                onRetryForSearch?.call();
-              }
-            },
+            onRetry:
+                (onRetry != null || (isFromSearch && onRetryForSearch != null))
+                    ? () {
+                        if (!isFromSearch) {
+                          onRetry?.call();
+                        } else {
+                          onRetryForSearch?.call();
+                        }
+                      }
+                    : null,
           );
     }
 
@@ -179,7 +181,7 @@ class PaginatedListWithSearchManager<T> extends StatelessWidget {
                 if (!isFromSearch) {
                   return onRefresh!();
                 } else {
-                  onRetryForSearch?.call();
+                  onRefreshForSearch!.call();
                 }
               },
               child: ListView.builder(
