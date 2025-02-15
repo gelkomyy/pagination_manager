@@ -33,6 +33,30 @@ class PaginationSearchManager<T> {
   ///  The current items.
   List<T> get items => List.unmodifiable(_items);
 
+  /// Method to add an item
+  void addItem(T item) {
+    _items.add(item);
+  }
+
+  /// Method to remove an item
+  void removeItem(T item) {
+    _items.remove(item);
+  }
+
+  /// Method to remove item by index
+  void removeAt(int index) {
+    if (index >= 0 && index < _items.length) {
+      _items.removeAt(index);
+    }
+  }
+
+  /// Method to update an item at a specific index
+  void updateItem(int index, T newItem) {
+    if (index >= 0 && index < _items.length) {
+      _items[index] = newItem;
+    }
+  }
+
   ///  The current keyword of search.
   String get currentKeyword => _currentKeyword;
 
