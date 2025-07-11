@@ -1,5 +1,3 @@
-library pagination_manager;
-
 import 'pagination_manager.dart';
 
 export 'src/pagination_result/pagination_result.dart';
