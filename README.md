@@ -238,7 +238,7 @@ This is the most powerful way to implement pagination with search functionality,
 
 #### Key Features:
 - **Lazy loading**: Automatically fetches more items as the user scrolls near the bottom of the list
-- **Search integration**: Seamlessly switches between pagination and search modes
+- **Search integration**: implement pagination with search functionality
 - **Customizable UI**: Customize error messages, empty item states, and loading indicators
 - **Error handling**: Displays error messages with optional retry buttons for both pagination and search
 - **Refresh and retry**: Supports pull-to-refresh functionality for both regular and search modes
