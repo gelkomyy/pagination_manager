@@ -1,12 +1,16 @@
-library pagination_manager;
-
 import 'pagination_manager.dart';
 
 export 'src/pagination_result/pagination_result.dart';
 export 'src/repos/paginated_repository.dart';
+export 'src/repos/paginated_repository_with_search.dart';
+export 'src/repos/paginated_search_repository.dart';
 export 'src/paginated_manager_list/paginated_manager_list.dart';
+export 'src/paginated_manager_list/paginated_manager_list_with_search_manager.dart';
 export 'src/pagination_manager_cubit/pagination_manager_cubit.dart';
 export 'src/paginated_list/paginated_list.dart';
+export 'src/paginated_list/paginated_list_with_search_manager.dart';
+export 'pagination_search_manager.dart';
+export 'pagination_manager_with_search.dart';
 
 /// A class for managing paginated data.
 ///
@@ -39,6 +43,30 @@ class PaginationManager<T> {
 
   ///  The current items.
   List<T> get items => List.unmodifiable(_items);
+
+  /// Method to add an item
+  void addItem(T item) {
+    _items.add(item);
+  }
+
+  /// Method to remove an item
+  void removeItem(T item) {
+    _items.remove(item);
+  }
+
+  /// Method to remove item by index
+  void removeAt(int index) {
+    if (index >= 0 && index < _items.length) {
+      _items.removeAt(index);
+    }
+  }
+
+  /// Method to update an item at a specific index
+  void updateItem(int index, T newItem) {
+    if (index >= 0 && index < _items.length) {
+      _items[index] = newItem;
+    }
+  }
 
   ///  Indicates whether there are more items to load.
   bool get hasMore => _hasMore;

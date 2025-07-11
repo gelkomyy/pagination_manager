@@ -1,24 +1,24 @@
 name: pagination_manager
 description: "A Flutter library for easy managing paginated data effectively"
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/gelkomyy/pagination_manager
 
 environment:
-  sdk: ^3.5.4
+  sdk: ">=3.5.4 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  freezed: ^2.5.7
-  freezed_annotation: ^2.4.4
-  flutter_bloc: ^8.1.6
+  freezed: ^3.1.0
+  freezed_annotation: ^3.1.0
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
-  build_runner: ^2.4.13
+  flutter_lints: ^6.0.0
+  build_runner: ^2.5.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
